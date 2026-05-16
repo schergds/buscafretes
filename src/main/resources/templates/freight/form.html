@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: html}">
+<head>
+    <title th:text="${freightForm.id == null ? 'Publicar Frete' : 'Editar Frete'}">Formulário de Frete</title>
+</head>
+<body>
+<div th:fragment="content">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold m-0" th:text="${freightForm.id == null ? 'Publicar Novo Frete' : 'Editar Frete'}">Publicar Frete</h2>
+                <a th:href="@{/freights/my-freights}" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+
+            <div class="card shadow-sm p-4">
+                <form th:action="${freightForm.id == null ? '/freights/create' : '/freights/' + freightForm.id + '/edit'}" 
+                      th:object="${freightForm}" method="post">
+                    
+                    <input type="hidden" th:field="*{id}">
+
+                    <h5 class="fw-bold mb-3 border-bottom pb-2">Informações Principais</h5>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Título do Anúncio</label>
+                        <input type="text" th:field="*{titulo}" class="form-control" th:classappend="${#fields.hasErrors('titulo')} ? 'is-invalid' : ''" placeholder="Ex: Carga seca de São Paulo para Curitiba">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Descrição Detalhada</label>
+                        <textarea th:field="*{descricao}" rows="4" class="form-control" th:classappend="${#fields.hasErrors('descricao')} ? 'is-invalid' : ''" placeholder="Detalhes sobre a carga, cuidados necessários, etc..."></textarea>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></div>
+                    </div>
+
+                    <h5 class="fw-bold mb-3 border-bottom pb-2">Rota e Veículo</h5>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Origem</label>
+                            <input type="text" th:field="*{origem}" class="form-control" th:classappend="${#fields.hasErrors('origem')} ? 'is-invalid' : ''" placeholder="Cidade, UF">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('origem')}" th:errors="*{origem}"></div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Destino</label>
+                            <input type="text" th:field="*{destino}" class="form-control" th:classappend="${#fields.hasErrors('destino')} ? 'is-invalid' : ''" placeholder="Cidade, UF">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('destino')}" th:errors="*{destino}"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Tipo de Caminhão</label>
+                            <select th:field="*{tipoCaminhao}" class="form-select" th:classappend="${#fields.hasErrors('tipoCaminhao')} ? 'is-invalid' : ''">
+                                <option value="">Selecione...</option>
+                                <option th:each="tipo : ${tiposCaminhao}" th:value="${tipo}" th:text="${tipo.descricao}"></option>
+                            </select>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('tipoCaminhao')}" th:errors="*{tipoCaminhao}"></div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-bold">Peso / Volume (Opcional)</label>
+                            <input type="text" th:field="*{peso}" class="form-control" placeholder="Ex: 15 Toneladas">
+                        </div>
+                    </div>
+
+                    <h5 class="fw-bold mb-3 border-bottom pb-2">Valores e Contato</h5>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Valor Oferecido (R$)</label>
+                            <input type="number" step="0.01" th:field="*{valor}" class="form-control" th:classappend="${#fields.hasErrors('valor')} ? 'is-invalid' : ''" placeholder="0.00">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}"></div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Data da Coleta</label>
+                            <input type="date" th:field="*{dataColeta}" class="form-control" th:classappend="${#fields.hasErrors('dataColeta')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('dataColeta')}" th:errors="*{dataColeta}"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Telefone Principal</label>
+                            <input type="text" th:field="*{telefoneContato}" class="form-control" th:classappend="${#fields.hasErrors('telefoneContato')} ? 'is-invalid' : ''" placeholder="(00) 00000-0000">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('telefoneContato')}" th:errors="*{telefoneContato}"></div>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <label class="form-label fw-bold">WhatsApp (com DDI + DDD)</label>
+                            <input type="text" th:field="*{whatsapp}" class="form-control" th:classappend="${#fields.hasErrors('whatsapp')} ? 'is-invalid' : ''" placeholder="5511999999999">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('whatsapp')}" th:errors="*{whatsapp}"></div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg fw-bold" th:text="${freightForm.id == null ? 'Publicar Frete' : 'Salvar Alterações'}">Publicar Frete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

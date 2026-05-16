@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: html}">
+<head>
+    <title>Cadastro - Vitrine de Fretes</title>
+</head>
+<body>
+<div th:fragment="content">
+    <div class="row justify-content-center mt-5 mb-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+                <div class="text-center mb-4">
+                    <i class="bi bi-person-plus fs-1 text-primary"></i>
+                    <h3 class="fw-bold mt-2">Crie sua conta</h3>
+                    <p class="text-muted">Junte-se à maior rede de fretes</p>
+                </div>
+
+                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+                <form th:action="@{/register}" th:object="${userForm}" method="post">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Nome Completo</label>
+                        <input type="text" th:field="*{nome}" class="form-control" th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' : ''" placeholder="Seu nome">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">E-mail</label>
+                        <input type="email" th:field="*{email}" class="form-control" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''" placeholder="seu@email.com">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Telefone / WhatsApp</label>
+                        <input type="text" th:field="*{telefone}" class="form-control" th:classappend="${#fields.hasErrors('telefone')} ? 'is-invalid' : ''" placeholder="(00) 00000-0000">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Senha</label>
+                        <input type="password" th:field="*{senha}" class="form-control" th:classappend="${#fields.hasErrors('senha')} ? 'is-invalid' : ''" placeholder="Mínimo de 6 caracteres">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Cadastrar</button>
+                </form>
+
+                <div class="mt-4 text-center">
+                    <p class="text-muted">Já tem uma conta? <a th:href="@{/login}" class="text-decoration-none fw-bold">Entre aqui</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

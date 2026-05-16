@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: html}">
+<head>
+    <title>Meus Fretes - Vitrine de Fretes</title>
+</head>
+<body>
+<div th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+        <h2 class="fw-bold m-0"><i class="bi bi-person-lines-fill text-primary"></i> Meus Fretes Publicados</h2>
+        <a th:href="@{/freights/create}" class="btn btn-primary fw-bold"><i class="bi bi-plus-lg"></i> Novo Frete</a>
+    </div>
+
+    <div th:if="${freights.empty}" class="text-center py-5 bg-white rounded shadow-sm border">
+        <i class="bi bi-inbox fs-1 text-muted"></i>
+        <h3 class="mt-3 text-muted">Você ainda não publicou nenhum frete.</h3>
+        <p>Comece agora mesmo clicando no botão acima.</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" th:unless="${freights.empty}">
+        <div class="col" th:each="freight : ${freights}">
+            <div class="card h-100 shadow-sm" th:classappend="${freight.status.name() == 'FINALIZADO'} ? 'bg-light border-secondary' : ''">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <span class="badge" th:classappend="${freight.status.name() == 'ABERTO'} ? 'bg-success' : (${freight.status.name() == 'EM_NEGOCIACAO'} ? 'bg-warning text-dark' : 'bg-secondary')" th:text="${freight.status.descricao}">Aberto</span>
+                        <span class="freight-price" th:classappend="${freight.status.name() == 'FINALIZADO'} ? 'text-muted' : ''" th:text="${'R$ ' + #numbers.formatDecimal(freight.valor, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>
+                    </div>
+                    <h5 class="card-title fw-bold" th:classappend="${freight.status.name() == 'FINALIZADO'} ? 'text-muted' : ''" th:text="${freight.titulo}">Título</h5>
+                    
+                    <div class="mt-3">
+                        <p class="mb-1 text-muted small"><i class="bi bi-geo-alt"></i> <span th:text="${freight.origem}"></span> <i class="bi bi-arrow-right"></i> <span th:text="${freight.destino}"></span></p>
+                        <p class="mb-1 text-muted small"><i class="bi bi-truck"></i> <span th:text="${freight.tipoCaminhao.descricao}"></span></p>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 pb-3 px-3">
+                    <div class="d-flex gap-2">
+                        <a th:href="@{/freights/{id}/edit(id=${freight.id})}" class="btn btn-outline-primary btn-sm flex-grow-1" th:classappend="${freight.status.name() == 'FINALIZADO'} ? 'disabled' : ''">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        
+                        <form th:action="@{/freights/{id}/finish(id=${freight.id})}" method="post" class="flex-grow-1 d-grid" th:if="${freight.status.name() != 'FINALIZADO'}">
+                            <button type="submit" class="btn btn-outline-success btn-sm" onclick="return confirm('Deseja realmente finalizar este frete?')">
+                                <i class="bi bi-check2-circle"></i> Finalizar
+                            </button>
+                        </form>
+                        
+                        <form th:action="@{/freights/{id}/delete(id=${freight.id})}" method="post">
+                            <button type="submit" class="btn btn-outline-danger btn-sm px-3" onclick="return confirm('Tem certeza que deseja excluir? Esta ação é irreversível.')">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
