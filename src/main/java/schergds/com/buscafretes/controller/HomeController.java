@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import schergds.com.buscafretes.entity.Freight;
 import schergds.com.buscafretes.entity.enums.TipoCaminhao;
@@ -28,7 +29,7 @@ public class HomeController {
             @RequestParam(required = false) TipoCaminhao tipoCaminhao,
             @RequestParam(defaultValue = "0") int page,
             Model model,
-            @RequestParam(value = "htmx", required = false) String htmxHeader) {
+            @RequestHeader(value = "HX-Request", required = false) boolean isHtmxRequest) {
 
         Pageable pageable = PageRequest.of(page, 10, Sort.by("createdAt").descending());
         Page<Freight> freights = freightService.findAvailableFreights(origem, destino, tipoCaminhao, pageable);
@@ -42,7 +43,7 @@ public class HomeController {
         model.addAttribute("tipoCaminhaoSel", tipoCaminhao);
 
         // If request comes from HTMX, return only the fragment
-        if ("true".equals(htmxHeader)) {
+        if (isHtmxRequest) {
             return "fragments/freight-list :: list";
         }
 

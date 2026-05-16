@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: html}">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
 <head>
     <title>Meus Fretes - Vitrine de Fretes</title>
 </head>
 <body>
-<div th:fragment="content">
+<div layout:fragment="content">
     <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
         <h2 class="fw-bold m-0"><i class="bi bi-person-lines-fill text-primary"></i> Meus Fretes Publicados</h2>
         <a th:href="@{/freights/create}" class="btn btn-primary fw-bold"><i class="bi bi-plus-lg"></i> Novo Frete</a>
