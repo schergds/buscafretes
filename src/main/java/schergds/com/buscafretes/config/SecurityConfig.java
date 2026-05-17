@@ -32,6 +32,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/webjars/**").permitAll()
                 .requestMatchers("/freights", "/freights/filter").permitAll()
+                .requestMatchers("/freights/create").authenticated()
+                .requestMatchers("/freights/my-freights").authenticated()
                 .requestMatchers("/freights/{id}").permitAll()
                 .anyRequest().authenticated()
             )
