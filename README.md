@@ -1,6 +1,6 @@
-# Vitrine de Fretes
+# BuscaFretes
 
-Sistema web de vitrine de fretes onde usuários podem publicar e encontrar ofertas de transporte de cargas de forma simples e rápida.
+Sistema web de busca de fretes onde usuários podem publicar e encontrar ofertas de transporte de cargas de forma simples e rápida.
 
 O objetivo é conectar quem precisa enviar cargas com motoristas e transportadoras disponíveis, funcionando como um marketplace de fretes.
 
@@ -99,15 +99,15 @@ Sistema monolítico focado em simplicidade e rapidez de desenvolvimento.
 
 Clonar o repositório:
 
-git clone https github.com seu usuario vitrine de fretes.git
+git clone https://github.com/seu-usuario/buscafretes.git
 
 Criar banco de dados:
 
-CREATE DATABASE vitrine fretes
+CREATE DATABASE buscafretes;
 
 Configurar application properties:
 
-spring datasource url jdbc postgresql localhost 5432 vitrine fretes  
+spring.datasource.url=jdbc:postgresql://localhost:5432/buscafretes  
 spring datasource username postgres  
 spring datasource password sua senha  
 spring jpa hibernate ddl auto update  

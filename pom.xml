@@ -12,7 +12,7 @@
 	<artifactId>buscafretes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>buscafretes</name>
-	<description>Vitrine de Fretes System</description>
+	<description>BuscaFretes System</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
