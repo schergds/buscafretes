@@ -12,8 +12,7 @@
         <div class="col" th:each="freight : ${freights.content}">
             <div class="card h-100">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <span class="badge badge-tipo" th:text="${freight.tipoCaminhao.descricao}">Truck</span>
+                    <div class="text-end mb-2">
                         <span class="freight-price" th:text="${'R$ ' + #numbers.formatDecimal(freight.valor, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>
                     </div>
                     <h5 class="card-title fw-bold" th:text="${freight.titulo}">Título</h5>
@@ -22,6 +21,7 @@
                         <p class="mb-1 text-muted small"><i class="bi bi-geo-alt"></i> <strong>Origem:</strong> <span th:text="${freight.origem}"></span></p>
                         <p class="mb-1 text-muted small"><i class="bi bi-geo-fill"></i> <strong>Destino:</strong> <span th:text="${freight.destino}"></span></p>
                         <p class="mb-1 text-muted small"><i class="bi bi-calendar"></i> <strong>Coleta:</strong> <span th:text="${#temporals.format(freight.dataColeta, 'dd/MM/yyyy')}"></span></p>
+                        <p class="mb-1 text-muted small"><i class="bi bi-truck"></i> <strong>Tipo de caminhão:</strong> <span th:text="${freight.tipoCaminhao.descricao}"></span></p>
                     </div>
                 </div>
                 <div class="card-footer bg-transparent border-top-0 pb-3 px-3">

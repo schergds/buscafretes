@@ -1,7 +1,7 @@
 :root {
-    --primary-color: #4F46E5;
-    --primary-hover: #4338CA;
-    --secondary-color: #10B981;
+    --primary-color: #008238;
+    --primary-hover: #006b2e;
+    --secondary-color: #009c3b;
     --bg-color: #F3F4F6;
     --card-bg: #FFFFFF;
     --text-main: #111827;
@@ -66,8 +66,8 @@ body {
 }
 
 .badge-tipo {
-    background-color: #E0E7FF;
-    color: #4338CA;
+    background-color: #e6f5ec;
+    color: #008238;
     font-weight: 600;
     padding: 0.4em 0.8em;
     border-radius: 9999px;
@@ -87,11 +87,11 @@ body {
 
 .form-control:focus, .form-select:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    box-shadow: 0 0 0 3px rgba(0, 130, 56, 0.2);
 }
 
 .hero-section {
-    background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+    background: linear-gradient(135deg, #008238 0%, #006b2e 100%);
     color: white;
     padding: 4rem 0;
     border-radius: 1.5rem;
